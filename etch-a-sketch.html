@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+
+
+<style>
+
+  
+    #body
+    {
+      margin: 0px;
+    }
+
+    #title
+    {
+      margin: 30px;
+      margin-bottom: 40px;
+      text-align: center; 
+      font-size: 50px;
+    }
+    
+    #etch
+    {
+      display: flex;
+      justify-content: center;
+    
+    }
+
+    #container{
+        display: grid;
+        width: 500px;
+        height: 500px;
+        border: solid; 
+    }
+
+    #buttons
+    {
+      text-align: center;
+      margin: 30px;
+    }
+
+    #resetbutton
+    {
+      background-color: red;
+      padding: 10px;
+      font-size: 30px;
+      border-color: black;
+    }
+
+
+    .black:hover
+    {
+      background-color: black; 
+    }
+
+    
+    
+
+</style>
+
+
+
+<html>
+  <body id="body">
+    <h1 id="title">Etch-a-Sketch</h1>
+      <div id="mid">
+        <div id="etch">
+          <div id='container'>
+          </div>
+        </div>
+        <div id="buttons">
+          <button id='resetbutton'>Reset</button>
+        </div>
+      </div>
+  </body>
+</html>
+
+
+
+<script>
+
+    let container = document.querySelector('#container');
+
+
+    //length variable sets the container div to whatever length the user desires.
+    let length;
+    runEtch();
+
+    let resetbutton = document.querySelector("#resetbutton");
+    resetbutton.addEventListener("click", reset);
+
+    
+
+    
+    function runEtch()
+    {
+      ask();
+      createContainer();
+    }
+
+    function ask()
+    {
+      length = prompt("How many squares do you want on the side of your etch-a-sketch?");
+      length = parseInt(length);
+
+      if(length>200)
+      {
+        alert("Create an Etch-a-Sketch that is less than 200!!!");
+        runEtch();
+      }
+      
+      if(isNaN(length))
+      {
+        alert("Please enter a number");
+        runEtch();
+      }  
+    }
+
+    function createContainer()
+    {
+      for(i=0;i<length*length;i++)
+        {
+          let div = document.createElement("div");
+          div.setAttribute("id", i);
+          div.addEventListener("mouseover", () => {div.setAttribute("style", "background-color:black")})
+          container.appendChild(div);
+        }
+      container.setAttribute("style", `grid-template-columns: repeat(${length},1fr); grid-template-rows: repeat(${length}, 1fr`); 
+    }
+
+    function reset()
+    {
+      for(i=0;i<length*length;i++)
+        {
+          let div = document.getElementById(i)
+          container.removeChild(div);
+        }
+      runEtch();
+    }
+
+  </script>
